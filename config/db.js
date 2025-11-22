@@ -22,9 +22,9 @@ connection.query(
 // --------- CONNECT DATABASE ---------
 connection.changeUser({ database: process.env.DB_NAME }, (err) => {
   if (err) {
-    console.log("❌ DB Select Error:", err);
+    console.log("DB Select Error:", err);
   } else {
-    console.log("📌 Using Database:", process.env.DB_NAME);
+    console.log("Using Database:", process.env.DB_NAME);
   }
 });
 
