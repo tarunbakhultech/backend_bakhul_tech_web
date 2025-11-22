@@ -17,8 +17,6 @@ exports.getWebsiteInfo = (req, res) => {
     return res.json({ success: true, data: result[0] });
   });
 };
-
-// ==========================
 //    UPDATE WEBSITE INFO
 // ==========================
 exports.updateWebsiteInfo = (req, res) => {

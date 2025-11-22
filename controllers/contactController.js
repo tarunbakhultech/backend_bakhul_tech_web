@@ -1,36 +1,43 @@
 const db = require("../config/db");
+//GET ALL CONTACTS
+exports.getAllContacts = (req, res) => {
+  const sql = "SELECT * FROM contact_info ORDER BY created_at DESC";
 
-exports.getContacts = (req, res) => {
-  db.query("SELECT * FROM contacts", (err, result) => {
-    if (err) return res.status(500).json(err);
-    res.json(result);
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error("DB Error:", err);
+      return res
+        .status(500)
+        .json({ success: false, message: "Database error" });
+    }
+
+    res.json({ success: true, data: result });
   });
 };
 
+//ADD NEW CONTACT
 exports.addContact = (req, res) => {
-  const { name, email, phone, message } = req.body;
-  const sql =
-    "INSERT INTO contacts (name, email, phone, message) VALUES (?, ?, ?, ?)";
-  db.query(sql, [name, email, phone, message], (err, result) => {
-    if (err) return res.status(500).json(err);
-    res.json({ message: "Contact added", id: result.insertId });
-  });
-};
+  const { name, email, number, query, country, city, company, subject } =
+    req.body;
 
-exports.updateContact = (req, res) => {
-  const { name, email, phone, message } = req.body;
-  const sql =
-    "UPDATE contacts SET name=?, email=?, phone=?, message=? WHERE id=?";
-  db.query(sql, [name, email, phone, message, req.params.id], (err) => {
-    if (err) return res.status(500).json(err);
-    res.json({ message: "Contact updated" });
-  });
-};
+  const sql = `
+    INSERT INTO contact_info 
+    (name, email, number, query, country, city, company, subject)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  `;
 
-exports.deleteContact = (req, res) => {
-  const sql = "DELETE FROM contacts WHERE id=?";
-  db.query(sql, [req.params.id], (err) => {
-    if (err) return res.status(500).json(err);
-    res.json({ message: "Contact deleted" });
-  });
+  db.query(
+    sql,
+    [name, email, number, query, country, city, company, subject],
+    (err) => {
+      if (err) {
+        console.error("DB Error:", err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Database error" });
+      }
+
+      res.json({ success: true, message: "Contact submitted successfully" });
+    }
+  );
 };
