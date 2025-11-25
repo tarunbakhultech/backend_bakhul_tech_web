@@ -17,6 +17,7 @@ require("./models/ContactModel");
 require("./models/FaqModel");
 require("./models/TeamsModel");
 require("./models/TestimonialModel");
+require("./models/BlogModel");
 
 // ROUTES
 const LoginRoute = require("./routes/LoginRoute");
@@ -25,6 +26,7 @@ const ContactRoute = require("./routes/ContactRoute");
 const FaqRoute = require("./routes/FaqRoute");
 const TeamsRoute = require("./routes/TeamsRoute");
 const TestimonialRoute = require("./routes/TestimonialRoute");
+const blogRoutes = require("./routes/blogRoutes");
 
 app.use("/api/admin_link", LoginRoute);
 app.use("/api/admin_link", WebsiteInfoRoute);
@@ -32,6 +34,7 @@ app.use("/api/admin_link", ContactRoute);
 app.use("/api/admin_link", FaqRoute);
 app.use("/api/admin_link", TeamsRoute);
 app.use("/api/admin_link", TestimonialRoute);
+app.use("/api/admin_link", blogRoutes);
 
 // START SERVER
 const PORT = process.env.PORT || 5000;
